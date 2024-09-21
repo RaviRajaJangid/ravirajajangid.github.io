@@ -1,0 +1,132 @@
+    .body {
+        /* background-color: rosybrown; */
+        border-width: 3px;
+        width: 700pt;
+        height: auto;
+    }
+
+    .container {
+
+        background-color: rgb(253, 253, 253);
+        border-width: 3pt;
+        height: auto;
+        width: 100%;
+        float: inline-end;
+    }
+
+    .baseColumn1 {
+        width: 34%;
+        background-color: rgb(138, 165, 248);
+        float: left;
+        height: auto;
+        margin: 2px;
+        visibility: inherit;
+    }
+
+    .baseColumn2 {
+        width: 63%;
+        float: right;
+        height: auto;
+        /* background-color: rgb(8, 255, 28); */
+        background-color: rgb(138, 165, 248);
+        margin: 2px;
+    }
+
+    .photoContainer {
+        /* background-color: rgb(138, 165, 248); */
+        align-content: center;
+        align-items: flex-end;
+        padding: 40px;
+        border-width: 3px;
+    }
+
+    .photo {
+        display: table;
+        margin: 0 auto;
+        border-color: rgb(121, 188, 255);
+        border-width: 5px;
+        border-style: solid;
+        border-radius: 80px;
+        align-content: center;
+        height: 160;
+        width: 160;
+    }
+
+    .name {
+        font-size: 35px;
+        width: 100%;
+        color: white;
+        background: rgb(143, 145, 143);
+    }
+
+    .profession {
+        font-size: 18px;
+        margin-top: 20px;
+        color: white;
+    }
+
+    .h3 {
+        color: white;
+    }
+
+    .indent15 {
+        padding-left: 15px;
+        font-size: 14px;
+    }
+
+    .title {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .subTitle {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .bodyText {
+        font-size: 14px;
+    }
+
+    .timePeriod {
+        float: right;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .rns {
+        /* background: rgb(38, 60, 69); */
+        margin-top: 8px;
+        margin-bottom: -10px;
+    }
+
+    #experienceContainer {
+        margin-bottom: 10px;
+        /* background: skyblue; */
+    }
+
+    .bottom10 {
+        padding-bottom: 10px;
+    }
+
+    .top15 {
+        padding-top: 15px;
+    }
+
+    .outer {
+        display: flex;
+        width: 100%;
+        /* background: sandybrown; */
+        justify-content: space-between;
+    }
+
+    .div1 {
+        width: auto;
+        /* background: saddlebrown; */
+    }
+
+    .div2 {
+        width: auto;
+        text-align: left;
+        /* background: royalblue; */
+    }

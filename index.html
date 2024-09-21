@@ -1,141 +1,11 @@
 <html>
 
-<!-- <head>Resume</head> -->
-<script>
-</script>
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
 <style>
-    .body {
-        /* background-color: rosybrown; */
-        border-width: 3px;
-        width: 700pt;
-        height: auto;
-    }
 
-    .container {
-
-        background-color: rgb(253, 253, 253);
-        border-width: 3pt;
-        height: auto;
-        width: 100%;
-        float: inline-end;
-    }
-
-    .baseColumn1 {
-        width: 34%;
-        background-color: rgb(138, 165, 248);
-        float: left;
-        height: auto;
-        margin: 2px;
-        visibility: inherit;
-    }
-
-    .baseColumn2 {
-        width: 63%;
-        float: right;
-        height: auto;
-        /* background-color: rgb(8, 255, 28); */
-        background-color: rgb(138, 165, 248);
-        margin: 2px;
-    }
-
-    .photoContainer {
-        /* background-color: rgb(138, 165, 248); */
-        align-content: center;
-        align-items: flex-end;
-        padding: 40px;
-        border-width: 3px;
-    }
-
-    .photo {
-        display: table;
-        margin: 0 auto;
-        border-color: rgb(121, 188, 255);
-        border-width: 5px;
-        border-style: solid;
-        border-radius: 80px;
-        align-content: center;
-        height: 160;
-        width: 160;
-    }
-
-    .name {
-        font-size: 35px;
-        width: 100%;
-        color: white;
-        background: rgb(143, 145, 143);
-    }
-
-    .profession {
-        font-size: 18px;
-        margin-top: 20px;
-        color: white;
-    }
-
-    .h3 {
-        color: white;
-    }
-
-    .indent15 {
-        padding-left: 15px;
-        font-size: 14px;
-    }
-
-    .title {
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .subTitle {
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    .bodyText {
-        font-size: 14px;
-    }
-
-    .timePeriod {
-        float: right;
-        font-size: 14px;
-        font-weight: 600;
-    }
-
-    .rns {
-        /* background: rgb(38, 60, 69); */
-        margin-top: 8px;
-        margin-bottom: -10px;
-    }
-
-    #experienceContainer {
-        margin-bottom: 10px;
-        /* background: skyblue; */
-    }
-
-    .bottom10 {
-        padding-bottom: 10px;
-    }
-
-    .top15 {
-        padding-top: 15px;
-    }
-
-    .outer {
-        display: flex;
-        width: 100%;
-        /* background: sandybrown; */
-        justify-content: space-between;
-    }
-
-    .div1 {
-        width: auto;
-        /* background: saddlebrown; */
-    }
-
-    .div2 {
-        width: auto;
-        text-align: left;
-        /* background: royalblue; */
-    }
 </style>
 
 <body class='body'>
@@ -149,7 +19,9 @@
                 <div style="text-align: center; margin-bottom: 25px;">
                     <div class="name" style="text-align: center; margin-bottom: 0px;">Ravi Raja Jangid</div>
                     <span class="profession" style="text-align: left; margin-inline:8px ;">
-                        Post: SDE 2 <b>at iBind Systems Pvt. Ltd. </b>(Subsidiary of AI AND ROBOTICS VENTURES Thailand)
+                        SDE II at iBind Systems Pvt. Ltd. 
+
+                        <!-- </b>(Subsidiary of AI AND ROBOTICS VENTURES Thailand) -->
                         <br />Role: Senior Mobile Developer</span>
                 </div>
 
@@ -157,24 +29,26 @@
                     <h3 class="title">TECHNOLOGY & SKILLS</h3>
 
                     <div class="indent15">
-                       
-                        - Swift
+                        - Swift, SwiftUI, RxSwift
+                        <br />- XCTest, XCUITest
+                        <br />- XCFramework (SPM, SDK)
+                        <br />- WatchKit
                         <br />- Flutter
                         <br />- React-Native
                         <br />- Objective-C
-                        <br />- AWS Cloud Practitioner
-                        <br />- Basic Web-Technologies
+                        <!-- <br />- AWS Cloud Practitioner -->
+                        <br />- Basic Web-Technologies (HTML, CSS, JS)
 
                     </div>
                 </div>
                 <div>
                     <h3 class="title">PROJECTS</h3>
                     <div class="indent15">
-                        - Corporate Identity Platform (Flutter)
+                        - Entity Data Locker Wallet
+                        <br />- State Bank of Mauritius Outward Payment SDK 
+                        <br />- Corporate Identity Platform (Flutter)
                         <br />- NCID National Corporate ID Thailand (Swift)
-                        <br />- iSMS Merchandise (iPad)
                         <br />- iSMS Israel, Switzerland (React-Native)
-                        
                         <br />- Nasdaq Markets (React-Native)
                         <br />- Rohme (Swift)
                         <br />- Palliwal Jain App (React-Native)
@@ -248,7 +122,7 @@
                     <br />- Twitter
                 </div> -->
                 <div>
-                    <h3 class="title">PERMANENT ADDRESS</h3>
+                    <h3 class="title">ADDRESS</h3>
 
                     <div class="indent15">
                         71, Ravi Raja Jangid S/o Shri Kishan Lal Carpenter, Village & Post Cheta, Tehsil Hindoli
@@ -298,16 +172,16 @@
 </body>
 <script>
     function poppulateEmailPhone() {
+        //'ravirajajangid4@gmail.com',
         const data = ['raviraja.itpro@gmail.com',
-            'ravirajajangid4@gmail.com',
             '+91 (797) 611-1401',
             '+91 (978) 419-8792'];
         var exp = document.getElementById('emailPhone')
         exp.innerHTML = data.map((item, index) => `<br />${item}`).join('');
 
-        const about = `<h3 class="title">ABOUT</h3>
+        const about = `<h3 class="title">Professional Summary</h3>
                 <div class="bodyText indent15" style="text-align: justify;">
-                    I possess a master's degree in computer application (MCA) and boast 8 years of practical IT expertise, predominantly in iOS app development utilising Objective-C and Swift. Additionally, I've gained 2 years of experience in React-Native and approximately 1 year in Flutter. I've employed various contemporary tools and technologies to create and launch over twenty iOS applications on the iOS App Store, some of which support distinct orientations, interface idioms, and extensions. My professional experience also encompasses migrating existing applications to the cloud from on-premises hosting, demonstrating a fundamental understanding of AWS cloud.
+                    I hold a Master’s degree in Computer Applications (MCA) and bring over 9 years of comprehensive IT experience, specializing in iOS app development with a deep proficiency in Objective-C and Swift. My expertise extends to React-Native and Flutter, with around 2 years of hands-on experience in each. I have successfully developed and launched more than twenty iOS applications on the App Store, demonstrating my ability to handle diverse app orientations, interface idioms, and extensions. Additionally, I have practical experience in migrating applications from on-premises hosting to cloud environments, particularly with AWS, and am familiar with modern tools and technologies such as XCFramework and Swift Package Manager.
                     </div>`
         var exp = document.getElementById('about')
         exp.innerHTML = about;
@@ -332,7 +206,7 @@
     function populateExperience() {
         const data = [
             {
-                timePeriod: "From Jan-2021 to Present",
+                timePeriod: "From Jan-2022 to Present",
                 post: "SDE II",
                 company: " - iBind Systems Pvt. Ltd.",
                 city: 'Bengaluru',
@@ -499,13 +373,15 @@
                 suppprtedPlatform: "( iOS )",
                 timeline: "Jan 2020 to Oct 2020",
                 description: 'Using technology to update the medical world for the better. Striving to build a strong community of healthcare experts for the greater good. ',
-            }, {
-                name: "Palliwal Mobile App — ",
-                devLang: "React-Native ",
-                suppprtedPlatform: "( iOS, Android )",
-                timeline: "May 2019 to Dec 2019",
-                description: 'Palliwal mobile app is a social app for only the palliwal jain community . It supports different kinds of modules like community Community News, Matrimonial, Thoughts, Jobs, Online Exam, Blood Donation, Gallery, Community Directory etc.',
-            }, {
+            },
+            //  {
+            //     name: "Palliwal Mobile App — ",
+            //     devLang: "React-Native ",
+            //     suppprtedPlatform: "( iOS, Android )",
+            //     timeline: "May 2019 to Dec 2019",
+            //     description: 'Palliwal mobile app is a social app for only the palliwal jain community . It supports different kinds of modules like community Community News, Matrimonial, Thoughts, Jobs, Online Exam, Blood Donation, Gallery, Community Directory etc.',
+            // }, 
+            {
                 name: "MAF Loyalty — ",
                 devLang: "Swift",
                 suppprtedPlatform: "( iOS )",
