@@ -24,7 +24,7 @@
     }
 
     .baseColumn2 {
-        width: 63%;
+        width: 64.5%;
         float: right;
         height: auto;
         /* background-color: rgb(8, 255, 28); */
@@ -55,14 +55,13 @@
     .name {
         font-size: 35px;
         width: 100%;
-        color: white;
-        background: rgb(143, 145, 143);
+        color: #2b2a2a;
     }
 
     .profession {
         font-size: 18px;
         margin-top: 20px;
-        color: white;
+        color: #2b2a2a;
     }
 
     .h3 {
@@ -91,7 +90,8 @@
     .timePeriod {
         float: right;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 400;
+        color: #2b2a2a;
     }
 
     .rns {
