@@ -1,473 +1,1187 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Resume</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ravi Raja Jangid - iOS Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #3b82f6;
+            --dark-bg: #0f172a;
+            --light-bg: #ffffff;
+            --dark-text: #1e293b;
+            --light-text: #f1f5f9;
+            --gray-500: #6b7280;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            scroll-behavior: smooth;
+        }
+
+        body.light {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+        }
+
+        body.dark {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+        }
+
+        /* NAVBAR */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 30;
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        body.light nav {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        body.dark nav {
+            background-color: rgba(15, 23, 42, 0.3);
+            border-bottom: 1px solid #1e293b;
+        }
+
+        nav.shrink {
+            padding: 0.5rem 1.5rem;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        nav h1.shift {
+            transform: translateX(90px);
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        body.light nav a {
+            color: var(--dark-text);
+        }
+
+        body.dark nav a {
+            color: var(--light-text);
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.2);
+        }
+
+        /* HERO */
+        section.hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 80px;
+            position: relative;
+        }
+
+        .profile-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 2rem;
+            border: 3px solid var(--primary);
+            animation: slideInDown 0.8s ease;
+            transition: all 0.1s linear;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .profile-img.fixed-top {
+            position: fixed;
+            z-index: 40;
+            top: 1rem;
+            left: 1rem;
+            width: 60px;
+            height: 60px;
+            margin-bottom: 0;
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleUp {
+            0% {
+                transform: scale(0.95);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05));
+        }
+
+        body.light .social-icons a {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.05));
+        }
+
+        body.dark .social-icons a {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05));
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-8px) scale(1.15);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.3);
+            background: linear-gradient(135deg, var(--primary), rgba(59, 130, 246, 0.8));
+        }
+
+        .social-icons svg {
+            width: 28px;
+            height: 28px;
+            transition: all 0.3s ease;
+            fill: var(--primary);
+        }
+
+        .social-icons a:hover svg {
+            fill: white;
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 3rem 1rem;
+            max-width: 80rem;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* ABOUT */
+        #about p {
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        /* PROJECTS */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            border-radius: 0.75rem;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        body.light .project-card {
+            background-color: #f3f4f6;
+            border-color: #e5e7eb;
+        }
+
+        body.dark .project-card {
+            background-color: #1e293b;
+            border-color: #334155;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+        }
+
+        .project-image {
+            height: 160px;
+            background-color: rgba(59, 130, 246, 0.1);
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .project-card h3 {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card p {
+            font-size: 0.875rem;
+            opacity: 0.7;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* BLOG */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .blog-card {
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        body.light .blog-card {
+            background-color: #f3f4f6;
+            border-color: #e5e7eb;
+        }
+
+        body.dark .blog-card {
+            background-color: #1e293b;
+            border-color: #334155;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+        }
+
+        .blog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-header h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .blog-source {
+            padding: 0.35rem 0.75rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 0.35rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .blog-description {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            line-height: 1.6;
+            margin: 1rem 0;
+        }
+
+        .blog-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .blog-tag {
+            padding: 0.35rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            background-color: rgba(59, 130, 246, 0.2);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .blog-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 1.25rem;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .blog-link:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        /* SKILLS */
+        #skills {
+            text-align: center;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .skill-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background-color: var(--primary);
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .skill-badge:hover {
+            transform: scale(1.1);
+        }
+
+        /* SKILL TILES */
+        .skill-tiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-tile {
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        body.light .skill-tile {
+            background-color: #f3f4f6;
+            border-color: #e5e7eb;
+        }
+
+        body.dark .skill-tile {
+            background-color: #1e293b;
+            border-color: #334155;
+        }
+
+        .skill-tile:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .skill-tile h4 {
+            font-size: 1.125rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .skill-tile-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .skill-tile-item {
+            padding: 0.5rem 0.875rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            background-color: var(--primary);
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .skill-tile-item:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+
+        /* CONTACT */
+        #contact {
+            max-width: 40rem;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            opacity: 0.7;
+            border-top: 1px solid #cbd5e1;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .social-icons {
+                gap: 0.75rem;
+            }
+
+            .social-icons a {
+                width: 50px;
+                height: 50px;
+            }
+
+            .social-icons svg {
+                width: 22px;
+                height: 22px;
+            }
+        }
+    </style>
 </head>
+<body class="dark">
+    <!-- NAVBAR -->
+    <nav>
+        <h1>Ravi Raja Jangid</h1>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#blog">Blog</a>
+            <a href="#skills">Skills</a>
+            <a href="#tools">Tools</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+    </nav>
 
-<style>
+    <!-- HERO -->
+    <section class="hero">
+        <img src="resource/10.jpg" alt="Ravi Raja Jangid" class="profile-img" id="profileImg">
+        
+        <h1>iOS Developer Crafting Elegant Apps</h1>
+        
+        <p class="subtitle">Swift • SwiftUI • UIKit • Flutter • React Native • Clean Architecture</p>
+        
+        <!-- SOCIAL ICONS -->
+        <div class="social-icons">
+            <!-- GitHub Icon -->
+            <a href="https://github.com/RaviRajaJangid" target="_blank" rel="noopener noreferrer" title="GitHub" class="social-link github">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+            </a>
 
-</style>
+            <!-- LinkedIn Icon -->
+            <a href="http://www.linkedin.com/in/ravi-raja-jangid" target="_blank" rel="noopener noreferrer" title="LinkedIn" class="social-link linkedin">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+                </svg>
+            </a>
 
-<body class='body'>
+            <!-- Stack Overflow Icon -->
+            <a href="https://meta.stackoverflow.com/users/2788677/ravi-raja-jangid" target="_blank" rel="noopener noreferrer" title="Stack Overflow" class="social-link stackoverflow">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.986 21.865v-6.404h2.134V24H1.844v-8.539h2.134v6.404h15.008zM6.111 19.731h7.778v-1.927H6.111v1.927zm.259-4.852h7.52v-1.927H6.37v1.927zm19.23-5.556v-2.966h-2.166v2.966h2.166zm-2.166 6.12v-5.355h-2.134v5.355h2.134zm-1.074-15.345C21.195 0 24 2.81 24 6.22c0 3.434-2.805 6.22-6.26 6.22-3.454 0-6.26-2.786-6.26-6.22 0-3.41 2.806-6.22 6.26-6.22zm.918 11.064v-1.78h-7.779v1.78h7.779zm-8.852 2.635h-2.166v-5.355h2.166v5.355z"/>
+                </svg>
+            </a>
 
-    <div class='container'>
-        <!-- <div style="text-align: center; margin-bottom: 15px;">
-            <div class="name" style="text-align: center; margin-bottom: 10px; font-size: 19px; 
-            color:rgb(45, 43, 43)">Resume</div>
-        </div> -->
-        <div class="baseColumn1">
-            <div>
-                <!-- <div class='photoContainer'>
-                    <img src="./10.jpg" class='photo' />
-                </div> -->
-                <div style="text-align: left; margin-bottom: 25px;">
-                    <div class="name" style="text-align: left; margin-bottom: 0px;">Ravi Raja Jangid</div>
-                    <span class="profession" style="text-align: left; ">SDE II at iBind Systems Pvt. Ltd. 
+            <!-- Email Icon -->
+            <a href="mailto:ravirajajangid4@gmail.com" title="Email" class="social-link email">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+            </a>
 
-                        <!-- </b>(Subsidiary of AI AND ROBOTICS VENTURES Thailand) -->
-                        <br />Role: Senior Mobile Developer</span>
-                        <div>
-                            <div class=" top15" style="text-align: left;">
-                                <div id="emailPhone"> </div>
-                            </div>
-                        </div>
+            <!-- Medium Icon -->
+            <a href="https://medium.com/@raviraja.itpro" target="_blank" rel="noopener noreferrer" title="Medium" class="social-link medium">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42c1.87 0 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.59 0-1.07-2.15-1.07-5.4s.48-5.4 1.07-5.4c.66 0 1.19 2.58 1.19 5.75z"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <h2>About Me</h2>
+        <p>
+            Seasoned Mobile Application Developer with <span id="yearsExperience">11.5+</span> years of hands-on expertise in iOS development (Swift, Objective-C) and cross-platform technologies (Flutter, React Native). I have architected and delivered scalable, enterprise-grade applications across fintech, mobility, social networking, and digital credential domains, partnering with innovative startups, leading product-based organizations, and Fortune 500 enterprises.
+        </p>
+        <p>
+            I currently serve as Delivery Project Lead at Mphasis, directing a high-performing engineering team of 8 professionals on a flagship US banking mobile platform. My specialized expertise encompasses architectural patterns (MVC, MVVM, Clean Swift, VIPER), test-driven development (TDD), SOLID principles, and proven team leadership capabilities with a strong track record of delivering mission-critical applications.
+        </p>
+        <p>
+            I am committed to harnessing cutting-edge AI tools (GitHub Copilot, Claude, Xcode agents) to elevate development efficiency and code quality. Outside of my professional pursuits, I maintain a balanced lifestyle through fitness training, competitive table tennis, international travel, and swimming.
+        </p>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <h2>Featured Projects</h2>
+        
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-image">🏦</div>
+                <h3>Mobile Banking Platform</h3>
+                <p>Directing full-lifecycle development for one of the United States' largest banking institutions, architecting a comprehensive mobile banking platform featuring multiple modular Swift Packages including Bill Pay, Quick Pay, Transfers, and Brokerage services.</p>
+                <div class="project-tags">
+                    <span class="tag">Swift 6</span>
+                    <span class="tag">SPM</span>
+                    <span class="tag">iOS</span>
                 </div>
+            </div>
 
-                <div>
-                    <h3 class="title">TECHNOLOGY & SKILLS</h3>
-
-                    <div class="indent15">
-                        - Swift, SwiftUI, Combine, RxSwift
-                        <br />- XCTest, XCUITest
-                        <br />- XCFramework (SPM, SDK)
-                        <br />- CICD, Fastelane, Github Actions
-                        <br />- MVVM, Clean Swift, VIP
-                        <br />- CocoaPods, Carthage, SPM
-                        <br />- Core Data, SQLite
-                        <br />- REST, SOAP
-                        <br />- Firebase, AWS, GCP
-                        <br />- Git, Bitbucket, SourceTree
-                        <br />- JIRA, Confluence, Slack
-                        <br />- Agile, Scrum
-                        <br />- WatchKit, WatchExtensions
-                        <br />- Flutter, Dart
-                        <br />- React-Native, Redux
-                        <br />- Objective-C
-                        <!-- <br />- AWS Cloud Practitioner -->
-                        <br />- Basic of HTML, CSS, JavaScript
-
-                    </div>
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-image">🔐</div>
+                <h3>Corporate Identity Platform (CIP)</h3>
+                <p>A sophisticated blockchain-enabled corporate KYC platform engineered in Flutter, supporting Indian and expatriate onboarding workflows, electronic Power-of-Attorney (ePOA) management, Board Resolutions, and verifiable credential presentation.</p>
+                <div class="project-tags">
+                    <span class="tag">Flutter</span>
+                    <span class="tag">Blockchain</span>
+                    <span class="tag">KYC</span>
                 </div>
-                <div>
-                    <h3 class="title">In-PROGRESS PROJECTS</h3>
-                    <div class="indent15">
-                        - Entity Data Locker Wallet (Swift)
-                        <br />- SBM Outward Payment SDK (Swift)
-                        <!-- <br />- eDocSafe (Document Management) -->
-                        <br />- Corporate Identity Platform (Flutter)
-                    </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-image">📚</div>
+                <h3>Entity DataLocker</h3>
+                <p>An enterprise-grade document management solution featuring consent-based sharing, advanced OCR capabilities, intelligent document summarization, and end-to-end security through symmetric key cryptography using Apple's CryptoKit framework.</p>
+                <div class="project-tags">
+                    <span class="tag">Swift</span>
+                    <span class="tag">RxSwift</span>
+                    <span class="tag">CryptoKit</span>
                 </div>
-                <div>
-                    <h3 class="title">COMPLETED PROJECTS</h3>
-                    <div class="indent15">
-                      - NCID National Corporate ID Thailand (Swift)
-                        <br />- iSMS Israel, Switzerland (React-Native)
-                        <br />- Nasdaq Markets (React-Native)
-                        <br />- Rohme (Swift)
-                        <br />- Palliwal Jain App (React-Native)
-                        <br />- MAF Loyalty ( Clean Swift VIP )
-                        <br />- Onesaid (Social Networking)
-                        <br />- Car2Rent + Watch Ext. (Rent-Centric Corp.)
-                        <br />- Yourplayingcards
-                        <br />- Resume Builder - CV Designer
-                        <br />- Chakra Fine Jewellery
-                        <br />- Luxe Fine Jewellery
-                        <br />- Smiletrack + Watch Ext.
-                        <br />- iGOTBALANCE
-                        <br />- Nautical Calculator Great Lakes
-                        <br />- GenGold
-                        <br />- Whitaker Perks
-                        <br />- Lifestyle Innovations
-                        <br />- Skinner Instant Legal Help
-                        <br />- iGotBalance
-                    </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card">
+                <div class="project-image">✅</div>
+                <h3>NCID - National Corporate ID</h3>
+                <p>A blockchain-based identity verification ecosystem comprising dual applications: one for director onboarding and another for bank-side KYC verification through QR code scanning, leveraging verifiable credentials for enhanced security and compliance.</p>
+                <div class="project-tags">
+                    <span class="tag">Swift</span>
+                    <span class="tag">Blockchain</span>
+                    <span class="tag">iOS</span>
                 </div>
+            </div>
 
-                <div>
-                    <h3 class="title">EDUCATION </h3>
-                    <div id="education"></div>
+            <!-- Project 5 -->
+            <div class="project-card">
+                <div class="project-image">💹</div>
+                <h3>NASDAQ Markets App</h3>
+                <p>A comprehensive real-time financial intelligence platform serving 7M+ monthly active users, developed in React Native, delivering real-time market data, comprehensive stock quotes, and institutional-grade analyst insights.</p>
+                <div class="project-tags">
+                    <span class="tag">React Native</span>
+                    <span class="tag">Finance</span>
+                    <span class="tag">Cross-Platform</span>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div>
-                    <h3 class="title">LANGUAGES </h3>
-
-                    <div class="indent15">
-                        - Hindi (Read Write)
-                        <br />- English (Read Write)
-                    </div>
+    <!-- BLOG -->
+    <section id="blog">
+        <h2>Latest Blog Posts</h2>
+        
+        <div class="blog-grid">
+            <div class="blog-card">
+                <div class="blog-header">
+                    <h3>Swift Styling: Mastering UIAppearance & Custom Design Systems</h3>
+                    <span class="blog-source">Medium</span>
                 </div>
-                <div>
-                    <h3 class="title">ADDITIONAL ACTIVITIES </h3>
-
-                    <div class="indent15">
-                        - GYM Enthusiast
-                        <br />- Donate blood at least once a year
-                        <br />- Like to play Table Tennis
-                    </div>
+                <p class="blog-description">Discover advanced techniques for creating consistent, scalable design systems in Swift using UIAppearance, custom protocols, and modern SwiftUI approaches. Learn how to implement professional styling patterns that maintain code quality and reusability.</p>
+                <div class="blog-meta">
+                    <span class="blog-tag">Swift</span>
+                    <span class="blog-tag">UI Design</span>
+                    <span class="blog-tag">Best Practices</span>
                 </div>
-            <!-- <div>
-                    <h3 class="title">WHY ME</h3>
-                    <div class="indent15" style="font-style: italic; font-size: 14px;">
-                        <span style="font-size: 20;font-weight: bold;">“</span>
-                        <span style="font-size: 17;">Ravi</span> has been a great person to work with.
-                        In addition to being hardworking, dedicated and a great team player, the best thing I’ve found
-                        in
-                        him is that he keep exploring all the ways to get a single job done, meaning he brings more
-                        options
-                        to the table.<span style="font-size: 20; font-weight: bold;">”</span>
-
-                        <div style="text-align: right; font-style: italic;">
-                            CEO Pairroxz Technologies <br />
-                            Pratik Purohit Founder <br />
-                            Source: Linkedin
-                        </div>
-
-                    </div>
-                </div>  -->
-
-                <!-- <h3 class="title">OTHER LINKS</h3>
-
-                <div class="indent15">
-
-                    - Stackoverflow
-                    <br />- Facebook
-                    <br />- Linkedin
-                    <br />- Twitter
-                </div> -->
-                <div>
-                    <h3 class="title">CERTIFICATES</h3>
-                    <div class="indent15"> 
-LinkedIn: <a href="https://www.linkedin.com/learning/certificates/12e6182d077dd070452408dddaea94428f8d9c495ae1e311b845243a5cd0723a?trk=share_certificate&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3Bgg4Mj%2BZBRXKmcnx0j5j%2BUA%3D%3D">iOS Development: Security</a><br />
-LinkedIn: <a href="https://www.linkedin.com/learning/certificates/790f5acc0894fd1e62ef73debae0580d25f4e4c9844badb6efb88328095794e3?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3Bgg4Mj%2BZBRXKmcnx0j5j%2BUA%3D%3D">iOS Development: Architecture</a><br />
-IBM: <a href="https://www.credly.com/badges/3b04dd9e-7474-4f32-aaec-2cbfd3abe259?source=linked_in_profile">Enterprise Design Thinking Practitioner</a>
-</div>
-
-<h3 class="title">ONLINE PROFILES</h3> 
-<div class="indent15">
-    <a href="https://github.com/RaviRajaJangid">GitHub </a>, 
-    <a href="www.linkedin.com/in/ravi-raja-jangid">LinkedIn </a>,
-        <a href="https://www.hackerrank.com/profile/raviraja_itpro">HackerRank</a>, 
-        <a href="https://meta.stackoverflow.com/users/2788677/ravi-raja-jangid">StackOverFlow</a> 
-</div>
-<h3 class="title">CURRENT ADDRESS</h3>
-
-                    <div class="indent15">
-                        112/1-A, 3rd Floor, 1st Cross, Sonnappa Layout, Bhuvaneshwari Nagar, Dasarahalli Main Road, Hebbala, <em>Bangalore</em> - 560024
-                    </div>
-
-                    <!-- <h3 class="title">NATIVE ADDRESS</h3>
-
-                    <div class="indent15">
-                        House no. 71, Ravi Jangid S/o Shri Kishan Lal Carpenter, Village & Post Cheta, Tehsil Hindoli
-                        District
-                        Bundi, <em>Rajasthan</em> India 323024
-                    </div> -->
-                </div>
-
+                <a href="https://medium.com/@raviraja.itpro/swift-styling-978d942adde9" target="_blank" rel="noopener noreferrer" class="blog-link">Read on Medium →</a>
             </div>
         </div>
 
-        <div class="baseColumn2">
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="https://medium.com/@raviraja.itpro" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 0.75rem 1.5rem; background-color: var(--primary); color: white; border-radius: 0.5rem; text-decoration: none; font-weight: bold; transition: all 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">View All Articles on Medium</a>
+        </div>
+    </section>
 
-            <div>
-                <div class="indent15 top15" style="text-align: right;">
-                    <div id="emailPhone"> </div>
+    <!-- SKILLS -->
+    <section id="skills">
+        <h2>Skills & Expertise</h2>
+        
+        <div class="skill-tiles-grid">
+            <div class="skill-tile">
+                <h4>🔤 Languages</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Swift</span>
+                    <span class="skill-tile-item">Objective-C</span>
+                    <span class="skill-tile-item">Dart</span>
+                    <span class="skill-tile-item">JavaScript</span>
+                    <span class="skill-tile-item">React Native</span>
+                    <span class="skill-tile-item">TypeScript</span>
+                    <span class="skill-tile-item">Java</span>
+                    <span class="skill-tile-item">SQL</span>
                 </div>
             </div>
 
-            <div id="about"> </div>
-            <div>
-                <h3 class="title">EXPERIENCE </h3>
-                <div id="experienceContainer"></div>
-                <h3 class="title">MAJOR PROJECTS </h3>
-                <div id="majorProjectContainer"></div>
+            <div class="skill-tile">
+                <h4>📱 iOS Development</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">SwiftUI</span>
+                    <span class="skill-tile-item">UIKit</span>
+                    <span class="skill-tile-item">RxSwift</span>
+                    <span class="skill-tile-item">Combine</span>
+                    <span class="skill-tile-item">async/await</span>
+                    <span class="skill-tile-item">CoreData</span>
+                    <span class="skill-tile-item">MapKit</span>
+                    <span class="skill-tile-item">CryptoKit</span>
+                    <span class="skill-tile-item">StoreKit</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>🏗️ Architecture Patterns</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">MVVM</span>
+                    <span class="skill-tile-item">MVC</span>
+                    <span class="skill-tile-item">MVP</span>
+                    <span class="skill-tile-item">VIPER</span>
+                    <span class="skill-tile-item">Clean Swift</span>
+                    <span class="skill-tile-item">SOLID Principles</span>
+                    <span class="skill-tile-item">Design Patterns</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>🔄 Cross-Platform</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Flutter</span>
+                    <span class="skill-tile-item">React Native</span>
+                    <span class="skill-tile-item">Bloc</span>
+                    <span class="skill-tile-item">Provider</span>
+                    <span class="skill-tile-item">GetX</span>
+                    <span class="skill-tile-item">Redux</span>
+                    <span class="skill-tile-item">Hooks</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>✅ Testing & QA</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Unit Testing</span>
+                    <span class="skill-tile-item">UI Testing</span>
+                    <span class="skill-tile-item">XCTest</span>
+                    <span class="skill-tile-item">XCUITest</span>
+                    <span class="skill-tile-item">TDD</span>
+                    <span class="skill-tile-item">Test Coverage</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>⚙️ Development Practices</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Agile</span>
+                    <span class="skill-tile-item">Code Reviews</span>
+                    <span class="skill-tile-item">Team Leadership</span>
+                    <span class="skill-tile-item">Client Mgmt</span>
+                    <span class="skill-tile-item">Requirements</span>
+                    <span class="skill-tile-item">Version Control</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>🔒 Performance & Security</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Memory Profiling</span>
+                    <span class="skill-tile-item">SSL Pinning</span>
+                    <span class="skill-tile-item">OAuth</span>
+                    <span class="skill-tile-item">App Check</span>
+                    <span class="skill-tile-item">Cryptography</span>
+                    <span class="skill-tile-item">Security Audit</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>🎨 UI/UX & Design</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Auto Layout</span>
+                    <span class="skill-tile-item">Figma</span>
+                    <span class="skill-tile-item">Sketch</span>
+                    <span class="skill-tile-item">InVision</span>
+                    <span class="skill-tile-item">Storyboard</span>
+                    <span class="skill-tile-item">Size Classes</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>⚡ Multithreading</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">GCD</span>
+                    <span class="skill-tile-item">Multithreading</span>
+                    <span class="skill-tile-item">Concurrency</span>
+                    <span class="skill-tile-item">Operation Queues</span>
+                    <span class="skill-tile-item">async/await</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>🌐 IoT & Connectivity</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">BLE</span>
+                    <span class="skill-tile-item">MQTT</span>
+                    <span class="skill-tile-item">Apple Maps</span>
+                    <span class="skill-tile-item">Google Maps</span>
+                    <span class="skill-tile-item">Twilio</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>💳 Payment & E-Commerce</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Apple Pay</span>
+                    <span class="skill-tile-item">In-App Purchase</span>
+                    <span class="skill-tile-item">StoreKit</span>
+                    <span class="skill-tile-item">PayPal</span>
+                    <span class="skill-tile-item">Stripe</span>
+                </div>
             </div>
         </div>
+    </section>
 
-    </div>
+    <!-- TOOLS & TECHNOLOGIES -->
+    <section id="tools">
+        <h2>Tools & Technologies</h2>
+        
+        <div class="skill-tiles-grid">
+            <div class="skill-tile">
+                <h4>🔧 Development Tools</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Xcode</span>
+                    <span class="skill-tile-item">Instruments</span>
+                    <span class="skill-tile-item">MemoryGraph</span>
+                    <span class="skill-tile-item">Profiler</span>
+                    <span class="skill-tile-item">Source Tree</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>📦 Version Control</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Git</span>
+                    <span class="skill-tile-item">GitHub</span>
+                    <span class="skill-tile-item">GitLab</span>
+                    <span class="skill-tile-item">Jira</span>
+                    <span class="skill-tile-item">Confluence</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>🚀 CI/CD & Distribution</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">GitHub Actions</span>
+                    <span class="skill-tile-item">Jenkins</span>
+                    <span class="skill-tile-item">Fastlane</span>
+                    <span class="skill-tile-item">TestFlight</span>
+                    <span class="skill-tile-item">Firebase Distribution</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>🔗 Backend & APIs</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">REST APIs</span>
+                    <span class="skill-tile-item">URLSession</span>
+                    <span class="skill-tile-item">Alamofire</span>
+                    <span class="skill-tile-item">WebSockets</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>📦 Package Managers</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">CocoaPods</span>
+                    <span class="skill-tile-item">SPM</span>
+                    <span class="skill-tile-item">Carthage</span>
+                    <span class="skill-tile-item">pub (Dart)</span>
+                    <span class="skill-tile-item">npm</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>🔥 Firebase & Backend</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Firestore</span>
+                    <span class="skill-tile-item">Firebase Auth</span>
+                    <span class="skill-tile-item">Cloud Storage</span>
+                    <span class="skill-tile-item">Cloud Functions</span>
+                    <span class="skill-tile-item">Realtime DB</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>�️ Databases & Storage</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">CoreData</span>
+                    <span class="skill-tile-item">SQLite</span>
+                    <span class="skill-tile-item">Firestore</span>
+                    <span class="skill-tile-item">Realm</span>
+                    <span class="skill-tile-item">CloudKit</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>🎯 Flutter Packages</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Bloc</span>
+                    <span class="skill-tile-item">Dio</span>
+                    <span class="skill-tile-item">GetX</span>
+                    <span class="skill-tile-item">Provider</span>
+                    <span class="skill-tile-item">Google Vision</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>🤖 AI & Copilots</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">GitHub Copilot</span>
+                    <span class="skill-tile-item">Claude</span>
+                    <span class="skill-tile-item">Xcode Agent</span>
+                    <span class="skill-tile-item">ChatGPT</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>🖼️ Vision & Imaging</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Vision Framework</span>
+                    <span class="skill-tile-item">Google Vision API</span>
+                    <span class="skill-tile-item">ML Kit</span>
+                    <span class="skill-tile-item">OCR</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>🔐 Blockchain & Security</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Blockchain</span>
+                    <span class="skill-tile-item">Verifiable Creds</span>
+                    <span class="skill-tile-item">Digital Signatures</span>
+                    <span class="skill-tile-item">eMSigner</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>🎨 Design Tools</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Figma</span>
+                    <span class="skill-tile-item">Sketch</span>
+                    <span class="skill-tile-item">InVision</span>
+                    <span class="skill-tile-item">Adobe XD</span>
+                    <span class="skill-tile-item">Prototyping</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>📊 Analytics & Monitoring</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">Crashlytics</span>
+                    <span class="skill-tile-item">Fabric</span>
+                    <span class="skill-tile-item">Firebase Analytics</span>
+                    <span class="skill-tile-item">Observability</span>
+                </div>
+            </div>
+
+            <div class="skill-tile">
+                <h4>☁️ Cloud Infrastructure</h4>
+                <div class="skill-tile-content">
+                    <span class="skill-tile-item">AWS S3</span>
+                    <span class="skill-tile-item">AWS EC2</span>
+                    <span class="skill-tile-item">AWS Lambda</span>
+                    <span class="skill-tile-item">AWS IAM</span>
+                    <span class="skill-tile-item">Route 53</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        
+        <div style="text-align: center; margin-top: 2rem;">
+            <p style="margin-bottom: 2rem; opacity: 0.8; font-size: 1.1rem;">Feel free to connect with me on any of these platforms</p>
+            <div class="social-icons">
+                <!-- GitHub Icon -->
+                <a href="https://github.com/RaviRajaJangid" target="_blank" rel="noopener noreferrer" title="GitHub" class="social-link github">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+
+                <!-- LinkedIn Icon -->
+                <a href="http://www.linkedin.com/in/ravi-raja-jangid" target="_blank" rel="noopener noreferrer" title="LinkedIn" class="social-link linkedin">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+                    </svg>
+                </a>
+
+                <!-- Stack Overflow Icon -->
+                <a href="https://meta.stackoverflow.com/users/2788677/ravi-raja-jangid" target="_blank" rel="noopener noreferrer" title="Stack Overflow" class="social-link stackoverflow">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.986 21.865v-6.404h2.134V24H1.844v-8.539h2.134v6.404h15.008zM6.111 19.731h7.778v-1.927H6.111v1.927zm.259-4.852h7.52v-1.927H6.37v1.927zm19.23-5.556v-2.966h-2.166v2.966h2.166zm-2.166 6.12v-5.355h-2.134v5.355h2.134zm-1.074-15.345C21.195 0 24 2.81 24 6.22c0 3.434-2.805 6.22-6.26 6.22-3.454 0-6.26-2.786-6.26-6.22 0-3.41 2.806-6.22 6.26-6.22zm.918 11.064v-1.78h-7.779v1.78h7.779zm-8.852 2.635h-2.166v-5.355h2.166v5.355z"/>
+                    </svg>
+                </a>
+
+                <!-- Email Icon -->
+                <a href="mailto:ravirajajangid4@gmail.com" title="Email" class="social-link email">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </a>
+
+                <!-- Medium Icon -->
+                <a href="https://medium.com/@raviraja.itpro" target="_blank" rel="noopener noreferrer" title="Medium" class="social-link medium">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42c1.87 0 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.59 0-1.07-2.15-1.07-5.4s.48-5.4 1.07-5.4c.66 0 1.19 2.58 1.19 5.75z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Ravi Raja Jangid. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Calculate Dynamic Experience
+        function calculateExperience() {
+            const startDate = new Date(2014, 8, 1); // September 1, 2014 (months are 0-indexed)
+            const today = new Date();
+            
+            // Calculate difference in months
+            let months = (today.getFullYear() - startDate.getFullYear()) * 12;
+            months += today.getMonth() - startDate.getMonth();
+            
+            // Calculate years and remaining months
+            const years = Math.floor(months / 12);
+            const remainingMonths = months % 12;
+            
+            // Determine display format
+            let experience;
+            if (remainingMonths < 5) {
+                // Less than 5 months: show just the year
+                experience = years + '+';
+            } else {
+                // 5 months or more: show X.5
+                experience = years + '.5+';
+            }
+            
+            return experience;
+        }
+        
+        // Update experience on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const yearsElement = document.getElementById('yearsExperience');
+            if (yearsElement) {
+                yearsElement.textContent = calculateExperience();
+            }
+        });
+
+        let isDark = true;
+        const profileImg = document.getElementById('profileImg');
+        const nav = document.querySelector('nav');
+        const navH1 = nav.querySelector('h1');
+        
+        const ANIMATION_START = 0;     // Scroll position where animation starts
+        const ANIMATION_END = 400;     // Scroll position where animation completes
+
+        // Easing function for smooth animation
+        function easeOutCubic(t) {
+            return 1 - Math.pow(1 - t, 3);
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            isDark = !isDark;
+            document.body.classList.toggle('dark');
+            document.body.classList.toggle('light');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            toggleTheme();
+        }
+
+        // Smooth Scroll Animation with Size Transitions
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            
+            // Calculate animation progress (0 to 1) with easing
+            const rawProgress = Math.min(Math.max((scrollY - ANIMATION_START) / (ANIMATION_END - ANIMATION_START), 0), 1);
+            const progress = easeOutCubic(rawProgress);
+            
+            // Calculate position: center (0, 0) to top-left (1rem, 1rem)
+            const topPos = progress * 1 * 16;  // 1rem = 16px
+            const leftPos = progress * 1 * 16;
+            
+            // Calculate size: 160px to 60px with smooth scaling
+            const initialSize = 160;
+            const finalSize = 60;
+            const currentSize = initialSize - (initialSize - finalSize) * progress;
+            
+            // Calculate border adjustment for smooth transition
+            const initialBorder = 3;
+            const finalBorder = 2;
+            const currentBorder = initialBorder - (initialBorder - finalBorder) * progress;
+            
+            // Calculate shadow intensity based on position
+            const shadowOpacity = 0.2 - (0.1 * progress);
+            
+            // Add scale effect during transition for more dynamic feel
+            const scale = 1 - (progress * 0.05);
+            
+            // Apply smooth transformations with all properties
+            profileImg.style.position = progress > 0.01 ? 'fixed' : 'relative';
+            profileImg.style.width = currentSize + 'px';
+            profileImg.style.height = currentSize + 'px';
+            profileImg.style.top = topPos + 'px';
+            profileImg.style.left = leftPos + 'px';
+            profileImg.style.zIndex = 40;
+            profileImg.style.marginBottom = (1 - progress) * 2 + 'rem';
+            profileImg.style.borderWidth = currentBorder + 'px';
+            profileImg.style.boxShadow = `0 ${10 - (5 * progress)}px ${30 - (10 * progress)}px rgba(59, 130, 246, ${shadowOpacity})`;
+            profileImg.style.transform = `scale(${scale})`;
+            
+            // Smooth name shift with fade effect
+            if (progress > 0.05) {
+                navH1.classList.add('shift');
+                navH1.style.opacity = 1 - (progress * 0.3);
+            } else {
+                navH1.classList.remove('shift');
+                navH1.style.opacity = 1;
+            }
+            
+            // Shrink navbar padding during scroll
+            if (scrollY > 80) {
+                nav.classList.add('shrink');
+            } else {
+                nav.classList.remove('shrink');
+            }
+        });
+
+        // Smooth scroll navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
 </body>
-<script>
-    function poppulateEmailPhone() {
-        //'ravirajajangid4@gmail.com',
-        const data = [
-            // 'ravirajajangid4@gmail.com',
-       
-            // '+91 (797) 611-1401',
-            'Phone: +91 (978) 419-8792',
-            'Email: raviraja.itpro@gmail.com',];
-        var exp = document.getElementById('emailPhone')
-        exp.innerHTML = data.map((item, index) => `<br />${item}`).join('');
-
-        const about = `<h3 class="title">Professional Summary</h3>
-                <div class="bodyText indent15" style="text-align: justify;">
-                   Mobile Application Developer with 10 years of hands-on experience, specializing in iOS development and proficient in Swift, UIKit, and SwiftUI, delivering results-driven solutions. Proven track record of designing and developing high-performance, scalable, and user-centric applications, including fintech solutions such as payment sdk for outward remittance, QR code scanning, and KYC onboarding. Experienced in architecting mobile applications using MVVM, Clean Swift, and multi-platform technologies like Flutter and React Native.
-
-Strong background in leading teams, mentoring developers, and driving mobile strategies to deliver high-quality applications. 
-</br>Seeking opportunities to lead and innovate in mobile app development, fintech solutions, and scalable architectures.
-                    </div>`
-        var exp = document.getElementById('about')
-        exp.innerHTML = about;
-
-    };
-    poppulateEmailPhone();
-    /*
-     {
-                timePeriod: "From Jan-2021 to Oct-2023",
-                post: "Senior Development Engineer II",
-                company: " - ARV",
-                city: 'Thailand',
-                body: "I joined AI AND ROBOTICS VENTURES as a Senior Development Engineer II for the post of Senior mobile developer. Here I worked on blockchain based corporate KYC application.",
-                roleNResponsibilities: "Role & Responsibilities",
-                bulletedList: [
-                    "Worked on DCID project in BIND team and Lead the 8 members mobile team",
-                    "Worked on optimising and enhancements in the KYC process",
-                    "Learned and worked on flutter based app development"
-                ]
-            },
-    */
-    function populateExperience() {
-        const data = [
-            {
-                from:"Jan-2022",
-                to: "Present",
-                post: "SDE II",
-                company: " - iBind Systems Pvt. Ltd.",
-                city: 'Bengaluru',
-                body: "iBind is a Fintech startup where I joined as a Senior Software Engineer II in the role of Senior Mobile Developer. I am working on a blockchain-based corporate KYC application aimed at streamlining the corporate onboarding process. My responsibilities include managing the entire development lifecycle, from requirement analysis and testing (via TestFlight/Firebase) to deployment on the App Store and Play Store.",
-                roleNResponsibilities: "Role & Responsibilities",
-                bulletedList: [
-                    "Here I contributed on DCID Thai, Corporate Identity Platform,Entity Data Locker, eDocSafe projects.",
-                    "Led an eight-member mobile team, handling development for Android and iOS platforms.",
-                    // "Collaborated on optimising and enhancing the KYC process.",
-                   "Developed multiplatform supported (Android,ios)  applications using Flutter.",
-                    "Gained proficiency in developing Flutter app through practical learning and hands-on experience."
-                ]
-            },
-
-            {
-                from:"July-06-2021",
-                to: "Dec-2022",
-                post: "Senior Technical Analyst",
-                company: " - IBM",
-                city: 'Pune',
-                body: "I joined IBM as a Mobile Application Developer for the post of Senior Technical Analyst. Here I worked on blockchain based corporate KYC application." +
-                    " Worked on enterprise sales application (offline backed by db3 sqlite, data synching with back-office) migration from on premises to aws cloud with some additional feature such as Digital Card Payment. " 
-                    // +
-                    // "Led the multiple teams as SPOC to remediate the identified security vulnerabilities initiative in 82 applications of a single client that includes disable legacy excel format, deprecated kerberos cipher etc ",
-                ,roleNResponsibilities: "Role & Responsibilities",
-                bulletedList: [
-                    "Got the basic understanding of cloud infrastructure like S3, EBS, IAM, ELB, EC2, Route 53 etc.",
-                    "Provided Run and Support on Service now(SNOW) as per SLA.",
-                    // "Client production env incident resolution as per the SLA.",
-                    "Led the Security vulnerability initiative."
-                ]
-            },
-            {
-                from:"Dec-03-2018",
-                to: "July-02-2021",
-                post: "Sr. iOS Developer",
-                company: " - AnkTech Softwares Pvt. Ltd.",
-                city: "Jaipur",
-                body: "I joined Anktech as a Sr. Software Engineer for the post of Sr. iOS Application Developer and worked with 20 team members. Here we used Git for source & version control and Source Tree(GUI git client), Redux, React-StyleSheet, Hooks, Redux-Thunk, Functional component, Class component, Type-Script. ",
-                roleNResponsibilities: "Role & Responsibilities",
-                bulletedList: [
-                    "Developed multiplatform supported applications using React-Native.",
-                    "Used git (GUI git Client Source-Tree) for source control.",
-                    "Working experience with the size of more than twenty members in one team.",
-                    "Developed iOS Applications using MVVM, CLEAN Swift Architecture",
-                    "UI and Unit Testing using XCTest framework. "
-                ]
-            },
-            {
-                from:"Aug-01-2014",
-                to: "Nov-02-2018",
-                post: "iOS Developer",
-                company: " - Pairroxz Technologies Pvt. Ltd.",
-                city: "Jaipur",
-                body: "I have joined here as an Assistance Software Engineer for the post-Jr. iOS Application Developer. Here I have developed more than fifteen iOS native applications using mainly Objective-c",
-                roleNResponsibilities: "Role & Responsibilities",
-                bulletedList: [
-                    "Native iOS app development for both idioms (iPhone only, iPad only and Universal).",
-                    "Expertise in both StoryBoard and XIB based design layout.",
-                    "Created interactive fully custom controls and graphs by the help of CALayer and BezierPath.",
-                    "Experiences with the most common scenarios to manage apple developer accounts as well as iTunes-Connect during the whole application development process.",
-                ]
-            },
-        ];
-        const innerHTML = data.map((item, index) => `
-       
-    <div class="timePeriod ${index != 0 ? "top15" : ""}" >
-        <i >From ${item.from} to ${item.to}</i></div>
-       
-     <div class="title ${index != 0 ? "top15" : ""}"> ${item.post + item.company}</div>
-     
-     <hr/>
-     <div class="indent15 bodyText " style="text-align: justify;"> ${item.body}
-     <br /><div class="rns"><b >${item.roleNResponsibilities}</b></div>
-      ${item.bulletedList.map(line => '<br />● ' + line).join('')}</div>`).join('');
-
-        var exp = document.getElementById('experienceContainer')
-        exp.innerHTML = innerHTML;
-    }
-    populateExperience();
-
-    function populateEdu() {
-        const data = [
-            {
-                startTime: "Jul 2011",
-                endTime: "Aug 2014",
-                institute: "Graphic Era University,",
-                instituteCity: "Dehradun (Uttrakhand)",
-                qualification: "MCA",
-                qualificationSuperScript: "",
-                grade: "I",
-                gradeSuperScript: "st",
-            },
-            {
-                startTime: "Aug 2008",
-                endTime: "Jul 2011",
-                institute: "Sikkim Manipal University,",
-                instituteCity: "Gangtok, (Sikkim)",
-                qualification: "BCA",
-                qualificationSuperScript: "",
-                grade: "I",
-                gradeSuperScript: "st",
-            },
-            {
-                startTime: "May 2007",
-                endTime: "May 2008",
-                institute: "Govt. Senior Secondary School,",
-                instituteCity: "Bundi (Rajasthan)",
-                qualification: "12",
-                qualificationSuperScript: "th",
-                grade: "I",
-                gradeSuperScript: "st",
-            },
-            // {
-            //     startTime: "May 2005",
-            //     endTime: "Jun 2006",
-            //     institute: "Govt. Senior Secondary School,",
-            //     instituteCity: "Alod (Rajasthan)",
-            //     qualification: "10",
-            //     qualificationSuperScript: "th",
-            //     grade: "II",
-            //     gradeSuperScript: "ed",
-            // }
-        ];
-        const innerHTML = data.map((item, index) => `
-        <div class=${index != 0 ? "top15" : "bottom10"}">
-            <div class="outer">
-                <div class="indent15 div1">
-                    <b>${item.qualification}</b>
-                    <sup>${item.qualificationSuperScript}</sup>
-                    <span class="indent15 bodyText">
-                        ${item.grade}
-                        <sup>${item.gradeSuperScript}</sup> Grade
-                    </span>
-                </div>
-                <div class="div2"> ${item.startTime} - ${item.endTime}</div>
-            </div>
-            <div class="outer indent15 bottom10">
-                ${item.institute} ${item.instituteCity}
-            </div>
-        </div>
-        `).join('');
-
-        var exp = document.getElementById('education')
-        exp.innerHTML = innerHTML;
-    }
-    populateEdu();
-
-    function populateMajorProject() {
-        const data = [
-            // {
-            //     name:"Internationl System for Sales and Marchandise (iSMS) — ",
-            //     devLang:"React-Native ",
-            //     suppprtedPlatform:"",
-            //     timeline:"From Mar 2022",
-            //     description:'description',
-            // },
-            {
-                name: "Entity Data Locker Wallet — ",
-                devLang: "Swift",
-                suppprtedPlatform: "( iOS, iPad )",
-                timeline: "Sept 2023 - WIP",
-                description: 'Entity Data Locker is a secure, cloud-based platform designed to help organizations, individuals to store, share, and verify digital documents.',
-            },
-            {
-                name: "National Corporate Identification (NCID) — ",
-                devLang: "Swift ",
-                suppprtedPlatform: "( iOS )",
-                timeline: "Jul 2021 to Feb 2022",
-                description: '1st of the kind Identity Wallet for Authorised Signatories of the Corporates. The Digital Identity Wallet is part of National Corporate Identification that provides a secured channel built for the Authorised Signatories of the Corporates to store, share and use the National ID, Corporate Power of Attorney and Digital signature as 1 single cryptographic record in any Corporate Financial transactions with Banks. The Identity Wallet solves the problem of the long paper trail required for the Corporate KYC process at Banks.',
-            }, {
-                name: "Nasdaq Markets — ",
-                devLang: "React-Native ",
-                suppprtedPlatform: "( iOS, Android )",
-                timeline: "Nov 2020 to Jun 2021",
-                description: 'Financial data for more than 7 million monthly unique users who rely on the NASDAQ.com website for real-time last sale data, stock quotes and the latest financial information. The NASDAQ Quote app will provide you access to the most popular information on NASDAQ.com and present unique features that are mobile optimised.',
-            }, {
-                name: "Rohme — ",
-                devLang: "Swift",
-                suppprtedPlatform: "( iOS )",
-                timeline: "Jan 2020 to Oct 2020",
-                description: 'Using technology to update the medical world for the better. Striving to build a strong community of healthcare experts for the greater good. ',
-            },
-            //  {
-            //     name: "Palliwal Mobile App — ",
-            //     devLang: "React-Native ",
-            //     suppprtedPlatform: "( iOS, Android )",
-            //     timeline: "May 2019 to Dec 2019",
-            //     description: 'Palliwal mobile app is a social app for only the palliwal jain community . It supports different kinds of modules like community Community News, Matrimonial, Thoughts, Jobs, Online Exam, Blood Donation, Gallery, Community Directory etc.',
-            // }, 
-            {
-                name: "MAF Loyalty — ",
-                devLang: "Swift",
-                suppprtedPlatform: "( iOS )",
-                timeline: "Dec 2018 to Jun 2019",
-                description: "This is a loyalty-based program for the earning point while purchasing any merchandise from MAF franchised malls. Users can share their point with any member of the family or group by creating a family group and contributing an amount. ",
-            },
-             {
-                 name: "Onesaid (Social Networking)—",
-                 devLang: "Objective-C",
-                 suppprtedPlatform: "( iOS )",
-                 timeline: "Jan 2017 to Jun 2018",
-                 description: "Onesaid is a social networking application and it provides a discussion platform to its user's. Anyone can involve discussion by sharing their thoughts in the form of a topic and invite others to get their view in the form of rating and opinion. Users can also communicate by chat and share multimedia content through the chat system backed by Twilio.",
-             }
-        ];
-
-        const innerHTML = data.map((item, index) => `
-        <div class="bottom10 indent15">
-            <div class="outer" style="font-size: 14px;">
-                <b>${item.name} <span style="color: rgb(65, 76, 87);">${item.devLang} ${item.suppprtedPlatform}</span></b>
-                <div class="bodyText">
-                    - ${item.timeline}<br/>
-                </div>
-            </div>
- 
-            <div class="bodyText" style="text-align: justify;">
-              ${item.description}
-            </div>
-        </div>
-        `).join('');
-
-        var exp = document.getElementById('majorProjectContainer')
-        exp.innerHTML = innerHTML;
-
-    }
-    populateMajorProject();
-    // var x = setTimeout(() => document.location.reload(true), 1500)
-</script>
-
 </html>
